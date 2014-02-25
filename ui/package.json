@@ -1,0 +1,20 @@
+{
+  "name": "bugfree-crypto",
+  "version": "0.1.0",
+  "description": "Cryptography assignment",
+  "author": "akasfei",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akasfei/bugfree-crypto"
+  },
+  "bugs": {
+    "url": "https://github.com/akasfei/bugfree-crypto/issues"
+  },
+  "dependencies": {
+    "async": "~0.2.0"
+  },
+  "window": {
+    "toolbar": false
+  }
+}

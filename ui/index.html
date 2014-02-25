@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bugfree-crypto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.js"></script>
+      <script src="./assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="./assets/ico/favicon.png">
+
+    <!-- Place anything custom after this. -->
+  </head>
+  <body>
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/bootstrap.js"></script>
+    <script src="./assets/js/application.js"></script>
+    
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#rsa" data-toggle="tab">RSA</a></li>
+        <li><a href="#" onclick="require('nw.gui').Window.get().reload()">Reload</a></li>
+        <li><a href="#" onclick="require('nw.gui').Window.get().showDevTools()">Debug</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="rsa">
+          <div class="row">
+            <h3>Keys:</h3>
+            <div class="input-group form-group">
+              <span class="input-group-addon">PUBL</span>
+              <input type="text" id="rsa-pub" class="form-control" placeholder="Public key">
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">PRIV</span>
+              <input type="text" id="rsa-priv" class="form-control" placeholder="Private key">
+            </div>
+            <button class="btn btn-primary rsa-gen-key">Generate</button>
+          </div>
+          <div class="row">
+            <h3>Encryption/Decryption</h3>
+            <div class="input-group form-group">
+              <span class="input-group-addon">ENC</span>
+              <input id="rsa-plain-path" type="file" style="display: none;" />
+              <input id="rsa-plain-disp" type="text" class="form-control" placeholder="File to encrypt">
+              <span class="input-group-btn">
+                <button class="btn btn-default rsa-browse" type="button">Browse</button>
+              </span>
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">DEC</span>
+              <input id="rsa-cipher-path" type="file" style="display: none;" />
+              <input id="rsa-cipher-disp" type="text" class="form-control" placeholder="File to decrypt">
+              <span class="input-group-btn">
+                <button class="btn btn-default rsa-browse" type="button">Browse</button>
+              </span>
+            </div>
+            <p>
+              <button class="btn btn-danger">Encrypt</button> <button class="btn btn-success">Decrypt</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- Prepare to die in agony for the glory of the Sierra Empire! -->
+<!--  Designed and developed by Sierra Six of SFEI Systems Inc.  -->
+<!--                     akasfei@gmail.com                       -->
