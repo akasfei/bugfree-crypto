@@ -32,14 +32,46 @@
     
     <div class="container">
       <ul class="nav nav-tabs">
+        <li><a href="#des" data-toggle="tab">DES</a></li>
         <li class="active"><a href="#rsa" data-toggle="tab">RSA</a></li>
         <li><a href="#" onclick="require('nw.gui').Window.get().reload()">Reload</a></li>
         <li><a href="#" onclick="require('nw.gui').Window.get().showDevTools()">Debug</a></li>
       </ul>
       <div class="tab-content">
+        <div class="tab-pane" id="des">
+          <div class="row">
+            <h3>Key</h3>
+            <div class="input-group form-group">
+              <span class="input-group-addon">DES</span>
+              <input type="text" id="des-key" class="form-control" placeholder="DES key">
+            </div>
+          </div>
+          <div class="row">
+            <h3>Encryption/Decryption</h3>
+            <div class="input-group form-group">
+              <span class="input-group-addon">ENC</span>
+              <input id="des-plain-path" type="file" style="display: none;" />
+              <input id="des-plain-disp" type="text" class="form-control" placeholder="File to encrypt">
+              <span class="input-group-btn">
+                <button class="btn btn-default des-browse" type="button">Browse</button>
+              </span>
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">DEC</span>
+              <input id="des-cipher-path" type="file" style="display: none;" />
+              <input id="des-cipher-disp" type="text" class="form-control" placeholder="File to decrypt">
+              <span class="input-group-btn">
+                <button class="btn btn-default des-browse" type="button">Browse</button>
+              </span>
+            </div>
+            <p>
+              <button id="des-encrypt" class="btn btn-danger">Encrypt</button> <button id="des-decrypt" class="btn btn-success">Decrypt</button>
+            </p>
+          </div>
+        </div>
         <div class="tab-pane active" id="rsa">
           <div class="row">
-            <h3>Keys:</h3>
+            <h3>Keys</h3>
             <div class="input-group form-group">
               <span class="input-group-addon">N</span>
               <input type="text" id="rsa-key-n" class="form-control" placeholder="Public key">

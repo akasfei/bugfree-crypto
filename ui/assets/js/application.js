@@ -21,9 +21,19 @@ var __dirname = process.cwd();
       });
     });
 
-    $('.rsa-browse').on('click', function (e) {
+    $('.rsa-browse, .des-browse').on('click', function (e) {
       var self = $(this);
       self.parent().siblings('input[type="file"]').trigger('click');
+    });
+
+    $('#des-plain-path').on('change', function (e) {
+      $('#des-plain-disp').val($(this).val());
+      $('#des-cipher-disp').val($(this).val() + '.des');
+    });
+
+    $('#des-cipher-path').on('change', function (e) {
+      $('#des-cipher-disp').val($(this).val());
+      $('#des-plain-disp').val($(this).val() + '.plain');
     });
 
     $('#rsa-plain-path').on('change', function (e) {
@@ -36,17 +46,55 @@ var __dirname = process.cwd();
       $('#rsa-plain-disp').val($(this).val() + '.plain');
     });
 
-    $('#rsa-encrypt').on('click', function (e) {
-      var plainPath = $('#rsa-plain-disp').val();
-      var cipherPath = $('#rsa-cipher-disp').val();
+    $('#des-encrypt').on('click', function (e) {
+      var key = $('#des-key').val();
+      var plainPath = $('#des-plain-disp').val();
+      var cipherPath = $('#des-cipher-disp').val();
       var childProc;
-      childProc = exec('python ' + __dirname + '/../rsa.py encrypt ' + plainPath + ' ' + cipherPath, function (err, stdout) {
+      var d = new Date().getTime();
+      childProc = exec('python ' + __dirname + '/../des.py encrypt ' + key + ' ' + plainPath + ' ' + cipherPath, function (err, stdout) {
+        if (err) {
+          console.log(util.inspect(err));
+          return;
+        }
+        var t = new Date().getTime() - d;
+        console.log(stdout);
+        console.log('Took %d ms.', t)
+        window.alert('Encryption complete. Took ' + t + ' ms.');
+      });
+    });
+
+    $('#des-decrypt').on('click', function (e) {
+      var key = $('#des-key').val();
+      var plainPath = $('#des-plain-disp').val();
+      var cipherPath = $('#des-cipher-disp').val();
+      var childProc;
+      var d = new Date().getTime();
+      childProc = exec('python ' + __dirname + '/../des.py decrypt ' + key + ' ' + cipherPath + ' ' + plainPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
         }
         console.log(stdout);
-        window.alert('Encryption complete.');
+        console.log('Took %d ms.', t)
+        window.alert('Decryption complete. Took ' + t + ' ms.');
+      });
+    });
+
+    $('#rsa-encrypt').on('click', function (e) {
+      var plainPath = $('#rsa-plain-disp').val();
+      var cipherPath = $('#rsa-cipher-disp').val();
+      var childProc;
+      var d = new Date().getTime();
+      childProc = exec('python ' + __dirname + '/../rsa.py encrypt ' + plainPath + ' ' + cipherPath, function (err, stdout) {
+        if (err) {
+          console.log(util.inspect(err));
+          return;
+        }
+        var t = new Date().getTime() - d;
+        console.log(stdout);
+        console.log('Took %d ms.', t)
+        window.alert('Encryption complete. Took ' + t + ' ms.');
       });
     });
 
@@ -54,13 +102,15 @@ var __dirname = process.cwd();
       var plainPath = $('#rsa-plain-disp').val();
       var cipherPath = $('#rsa-cipher-disp').val();
       var childProc;
+      var d = new Date().getTime();
       childProc = exec('python ' + __dirname + '/../rsa.py decrypt ' + cipherPath + ' ' + plainPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
         }
         console.log(stdout);
-        window.alert('Decryption complete.');
+        console.log('Took %d ms.', t)
+        window.alert('Decryption complete. Took ' + t + ' ms.');
       });
     });
 })
