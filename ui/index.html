@@ -41,12 +41,16 @@
           <div class="row">
             <h3>Keys:</h3>
             <div class="input-group form-group">
-              <span class="input-group-addon">PUBL</span>
-              <input type="text" id="rsa-pub" class="form-control" placeholder="Public key">
+              <span class="input-group-addon">N</span>
+              <input type="text" id="rsa-key-n" class="form-control" placeholder="Public key">
             </div>
             <div class="input-group form-group">
-              <span class="input-group-addon">PRIV</span>
-              <input type="text" id="rsa-priv" class="form-control" placeholder="Private key">
+              <span class="input-group-addon">E</span>
+              <input type="text" id="rsa-key-e" class="form-control" placeholder="Public key">
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">D</span>
+              <input type="text" id="rsa-key-d" class="form-control" placeholder="Private key">
             </div>
             <button class="btn btn-primary rsa-gen-key">Generate</button>
           </div>
@@ -69,7 +73,7 @@
               </span>
             </div>
             <p>
-              <button class="btn btn-danger">Encrypt</button> <button class="btn btn-success">Decrypt</button>
+              <button id="rsa-encrypt" class="btn btn-danger">Encrypt</button> <button id="rsa-decrypt" class="btn btn-success">Decrypt</button>
             </p>
           </div>
         </div>
