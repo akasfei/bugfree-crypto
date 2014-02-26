@@ -6,6 +6,7 @@ body {
   padding: 10px 16px;
 }
 
+#spn-test-stdout,
 span.input-group-addon {
   font-family: "Courier New", Courier, monospace;
 }

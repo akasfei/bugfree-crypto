@@ -1,6 +1,7 @@
 var fs = require('fs');
 var util = require('util');
 var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 var __dirname = process.cwd();
 
@@ -8,6 +9,17 @@ var __dirname = process.cwd();
 
   $(function(){
     checkKey();
+
+    $('#spn-test-linear').on('click', function (e) {
+      var test = spawn('python', [__dirname + '/../spn.py', 'test']);
+      var d = new Date().getTime();
+      test.stdout.on('data', function (data) {
+        $('#spn-test-stdout').val($('#spn-test-stdout').val() + data);
+      });
+      test.on('close', function (code) {
+        $('#spn-test-stdout').val($('#spn-test-stdout').val() + 'Test finished in ' + (new Date().getTime() - d) + 'ms with code ' + code + '.');
+      })
+    });
 
     $('.rsa-gen-key').on('click', function (e) {
       var childProc;
@@ -44,6 +56,40 @@ var __dirname = process.cwd();
     $('#rsa-cipher-path').on('change', function (e) {
       $('#rsa-cipher-disp').val($(this).val());
       $('#rsa-plain-disp').val($(this).val() + '.plain');
+    });
+
+    $('#spn-encrypt').on('click', function (e) {
+      var key = $('#spn-key').val();
+      var plain = $('#spn-plain').val();
+      var childProc;
+      var d = new Date().getTime();
+      childProc = exec('python ' + __dirname + '/../spn.py encrypt ' + key + ' ' + plain, function (err, stdout) {
+        if (err) {
+          console.log(util.inspect(err));
+          return;
+        }
+        var t = new Date().getTime() - d;
+        $('#spn-cipher').val(stdout);
+        console.log('Took %d ms.', t)
+        window.alert('Encryption complete. Took ' + t + ' ms.');
+      });
+    });
+
+    $('#spn-decrypt').on('click', function (e) {
+      var key = $('#spn-key').val();
+      var cipher = $('#spn-cipher').val();
+      var childProc;
+      var d = new Date().getTime();
+      childProc = exec('python ' + __dirname + '/../spn.py decrypt ' + key + ' ' + cipher, function (err, stdout) {
+        if (err) {
+          console.log(util.inspect(err));
+          return;
+        }
+        var t = new Date().getTime() - d;
+        $('#spn-plain').val(stdout);
+        console.log('Took %d ms.', t)
+        window.alert('Decryption complete. Took ' + t + ' ms.');
+      });
     });
 
     $('#des-encrypt').on('click', function (e) {

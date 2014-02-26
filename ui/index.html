@@ -32,12 +32,43 @@
     
     <div class="container">
       <ul class="nav nav-tabs">
+        <li class="active"><a href="#spn" data-toggle="tab">SPN</a></li>
+        <li><a href="#spntest" data-toggle="tab">SPN Test</a></li>
         <li><a href="#des" data-toggle="tab">DES</a></li>
-        <li class="active"><a href="#rsa" data-toggle="tab">RSA</a></li>
+        <li><a href="#rsa" data-toggle="tab">RSA</a></li>
         <li><a href="#" onclick="require('nw.gui').Window.get().reload()">Reload</a></li>
         <li><a href="#" onclick="require('nw.gui').Window.get().showDevTools()">Debug</a></li>
       </ul>
       <div class="tab-content">
+        <div class="tab-pane active" id="spn">
+          <div class="row">
+            <h3>SPN Encryption/Decryption</h3>
+            <div class="input-group form-group">
+              <span class="input-group-addon">KEY</span>
+              <input type="text" id="spn-key" class="form-control" placeholder="SPN key">
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">PLAIN</span>
+              <input type="text" id="spn-plain" class="form-control" placeholder="Plain number">
+            </div>
+            <div class="input-group form-group">
+              <span class="input-group-addon">CIPHR</span>
+              <input type="text" id="spn-cipher" class="form-control" placeholder="Cipher number">
+            </div>
+            <p>
+              <button id="spn-encrypt" class="btn btn-danger">Encrypt</button> <button id="spn-decrypt" class="btn btn-success">Decrypt</button>
+            </p>
+          </div>
+        </div>
+        <div class="tab-pane" id="spntest">
+          <div class="row">
+            <h3>SPN Tests</h3>
+            <textarea id="spn-test-stdout" rows="20" class="form-control"></textarea>
+            <p>
+              <button id="spn-test-linear" class="btn btn-danger">Test 1</button>
+            </p>
+          </div>
+        </div>
         <div class="tab-pane" id="des">
           <div class="row">
             <h3>Key</h3>
@@ -69,7 +100,7 @@
             </p>
           </div>
         </div>
-        <div class="tab-pane active" id="rsa">
+        <div class="tab-pane" id="rsa">
           <div class="row">
             <h3>Keys</h3>
             <div class="input-group form-group">
