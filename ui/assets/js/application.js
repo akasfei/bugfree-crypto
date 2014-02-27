@@ -4,6 +4,7 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 
 var __dirname = process.cwd();
+var __pyruntime = 'python'
 
 !function ($) {
 
@@ -11,7 +12,17 @@ var __dirname = process.cwd();
     checkKey();
 
     $('#spn-test-linear').on('click', function (e) {
-      var test = spawn('python', [__dirname + '/../spn.py', 'test']);
+      var test = spawn(__pyruntime, [__dirname + '/../spn.py', 'test', 'l']);
+      var d = new Date().getTime();
+      test.stdout.on('data', function (data) {
+        $('#spn-test-stdout').val($('#spn-test-stdout').val() + data);
+      });
+      test.on('close', function (code) {
+        $('#spn-test-stdout').val($('#spn-test-stdout').val() + 'Test finished in ' + (new Date().getTime() - d) + 'ms with code ' + code + '.');
+      })
+    });
+    $('#spn-test-diff').on('click', function (e) {
+      var test = spawn(__pyruntime, [__dirname + '/../spn.py', 'test', 'd']);
       var d = new Date().getTime();
       test.stdout.on('data', function (data) {
         $('#spn-test-stdout').val($('#spn-test-stdout').val() + data);
@@ -23,7 +34,7 @@ var __dirname = process.cwd();
 
     $('.rsa-gen-key').on('click', function (e) {
       var childProc;
-      childProc = exec('python ' + __dirname + '/../rsa.py init', function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../rsa.py init', function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -63,7 +74,7 @@ var __dirname = process.cwd();
       var plain = $('#spn-plain').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../spn.py encrypt ' + key + ' ' + plain, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../spn.py encrypt ' + key + ' ' + plain, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -80,7 +91,7 @@ var __dirname = process.cwd();
       var cipher = $('#spn-cipher').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../spn.py decrypt ' + key + ' ' + cipher, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../spn.py decrypt ' + key + ' ' + cipher, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -98,7 +109,7 @@ var __dirname = process.cwd();
       var cipherPath = $('#des-cipher-disp').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../des.py encrypt ' + key + ' ' + plainPath + ' ' + cipherPath, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../des.py encrypt ' + key + ' ' + plainPath + ' ' + cipherPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -116,7 +127,7 @@ var __dirname = process.cwd();
       var cipherPath = $('#des-cipher-disp').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../des.py decrypt ' + key + ' ' + cipherPath + ' ' + plainPath, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../des.py decrypt ' + key + ' ' + cipherPath + ' ' + plainPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -132,7 +143,7 @@ var __dirname = process.cwd();
       var cipherPath = $('#rsa-cipher-disp').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../rsa.py encrypt ' + plainPath + ' ' + cipherPath, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../rsa.py encrypt ' + plainPath + ' ' + cipherPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
@@ -149,11 +160,12 @@ var __dirname = process.cwd();
       var cipherPath = $('#rsa-cipher-disp').val();
       var childProc;
       var d = new Date().getTime();
-      childProc = exec('python ' + __dirname + '/../rsa.py decrypt ' + cipherPath + ' ' + plainPath, function (err, stdout) {
+      childProc = exec(__pyruntime + ' ' + __dirname + '/../rsa.py decrypt ' + cipherPath + ' ' + plainPath, function (err, stdout) {
         if (err) {
           console.log(util.inspect(err));
           return;
         }
+        var t = new Date().getTime() - d;
         console.log(stdout);
         console.log('Took %d ms.', t)
         window.alert('Decryption complete. Took ' + t + ' ms.');

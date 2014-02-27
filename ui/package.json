@@ -15,6 +15,10 @@
     "async": "~0.2.0"
   },
   "window": {
+    "width": 720,
+    "height": 510,
+    "min_width": 720,
+    "min_height": 510,
     "toolbar": false
   }
 }

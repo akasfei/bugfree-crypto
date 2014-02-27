@@ -10,3 +10,7 @@ body {
 span.input-group-addon {
   font-family: "Courier New", Courier, monospace;
 }
+
+#spn-test-stdout {
+  font-size: 11px;
+}
